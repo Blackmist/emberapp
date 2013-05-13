@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+      <ul class="nav nav-tabs nav-stacked">
+      {{#each model}}
+        <li>
+          {{#linkTo 'post' this}}{{title}}{{/linkTo}}
+        </li>
+      {{/each}}
+      </ul>
+    </div>
+    <div class="span7">
+      {{outlet}}
+    </div>
+  </div>
+</div>
