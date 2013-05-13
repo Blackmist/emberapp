@@ -3,7 +3,7 @@
 (function (window) {
   var App = window.App = Ember.Application.create();
   //create a the mobile service client...
-  var client = new WindowsAzure.MobileServiceClient('https://yourmobilesvc.azure-mobile.net/', 'yourmobilesvckey');
+  var client = new WindowsAzure.MobileServiceClient('https://larrymob.azure-mobile.net/', 'nzlwbbEtQVkIPAJkznmahmnvMMXTzs45');
 
 
 // ember-model-based adapter
