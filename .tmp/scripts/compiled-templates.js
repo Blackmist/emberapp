@@ -158,10 +158,7 @@ helpers = helpers || Ember.Handlebars.helpers; data = data || {};
   data.buffer.push("</small></h4>\r\n\r\n");
   hashTypes = {};
   data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "body", {hash:{},contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data})));
-  data.buffer.push("\r\n<div class=\"well well-small\">\r\n  <h4>Tags: <small>");
-  hashTypes = {};
-  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "topics", {hash:{},contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data})));
-  data.buffer.push("</small></h4>\r\n</div>");
+  data.buffer.push("\r\n");
   return buffer;
   
 });
