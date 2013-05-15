@@ -11,6 +11,21 @@
         <ul class="nav">
           <li>{{#linkTo posts}}<i class="icon-book icon-white"></i> Posts{{/linkTo}}</li>
           <li>{{#linkTo newpost}}<i class="icon-pencil icon-white"></i> Write{{/linkTo}}</li>
+          {{#if isAuthenticated}}
+            <li>
+              <a {{action logout}} href="#"><i class="icon-remove icon-white"></i> Logout</a>
+            </li>
+          {{else}}
+            <li class="dropdown">
+              <a id="loginproviders" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="icon-user icon-white"></i> Login <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="loginproviders">
+                <li role="presentation"><a {{action login "twitter"}} href="#">Twitter</a></li>
+                <li role="presentation"><a {{action login "google"}} href="#">Google</a></li>
+              </ul>
+            </li>
+          {{/if}}
         </ul>
       </div>
     </div>

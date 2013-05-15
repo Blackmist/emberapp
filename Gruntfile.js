@@ -105,6 +105,17 @@ module.exports = function (grunt) {
             },
             server: '.tmp'
         },
+        'ftp-deploy': {
+          build: {
+            auth: {
+              host: "yoursite.ftp.azurewebsites.windows.net",
+              port: 21,
+              authKey: 'key1'
+            },
+            src: 'dist',
+            dest: '/site/wwwroot'
+          }
+        },
         jshint: {
             options: {
                 jshintrc: '.jshintrc'

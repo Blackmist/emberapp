@@ -3,3 +3,5 @@ temp
 dist
 .sass-cache
 app/components
+.tmp
+.ftppass

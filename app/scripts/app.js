@@ -61,22 +61,23 @@
   // Newpost controller
   App.NewpostController = Ember.ObjectController.extend({
     title: '',
-    author: '',
     body: '',
-
+    authStateBinding: Ember.Binding.oneWay('App.LoginStateManager.currentState.name'),
+      authState: null,
+    isAuthenticated: function () {
+          return (this.get('authState') == 'isAuthenticated');
+      }.property('authState'),
     save: function() {
       //create the post
       var now = new Date();
       var post=App.Post.create({
         title: this.get('title'),
-        author: this.get('author'),
         body: this.get('body'),
         posted: now.toString('dddd, MMMM, yyyy'),
       });
       post.save();
       // set these back to '' so the form is pretty
       this.set('title','');
-      this.set('author','');
       this.set('body','');
       //transition back to posts
       this.transitionToRoute('posts');
@@ -89,6 +90,7 @@
       this.resource('post', { path: ':post_id' });
     });
     this.resource('newpost');
+
   });
 
   App.IndexRoute = Ember.Route.extend({
@@ -100,5 +102,49 @@
     model: function () {
       return App.Post.findAll();
     }
-  })
+  });
+
+  //login statemachine
+  App.LoginStateManager = Ember.StateManager.create({
+      initialState: "isNotAuthenticated",
+      isAuthenticated: Ember.State.create({
+          enter: function () {
+              console.log("enter " + this.name);
+          },
+          logout: function (manager, context) {
+              manager.transitionTo('isNotAuthenticated');
+          }
+      }),
+      isNotAuthenticated: Ember.State.create({
+          enter: function () {
+              console.log("enter " + this.name);
+          },
+          login: function (manager, credentials) {
+              console.log(credentials);
+              manager.transitionTo('isAuthenticated');
+          }
+      })
+  });
+
+  //Application controller, since we want login to be an application wide thing
+  //login/logout events are bubbled up to here regardless of the page you are on
+  App.ApplicationController = Em.Controller.extend({
+
+      authStateBinding: Ember.Binding.oneWay('App.LoginStateManager.currentState.name'),
+      authState: null,
+
+      isAuthenticated: function () {
+          return (this.get('authState') == 'isAuthenticated');
+      }.property('authState'),
+      login: function(provider) {
+        client.login(provider).then(function(results) {
+          App.LoginStateManager.send("login", client.currentUser);
+        });
+      },
+      logout: function() {
+        client.logout();
+        App.LoginStateManager.send("logout");
+      }
+  });
+
 })(this);

@@ -1,12 +1,15 @@
-<div class="span6">
-  {{view Ember.TextField valueBinding="title" class="span6" placeholder="Title"}}
-</div>
-<div class="span4">
-  {{view Ember.TextField valueBinding="author" class="span2" placeholder="Author"}}
-</div>
-<div class="span8">
-  {{view Ember.TextArea valueBinding="body" class="span8" rows="6" placeholder="Your blog goes here"}}
-</div>
-<div class="span12">
-  <button {{action save}} class="btn">Save</button>
-</div>
+{{#if isAuthenticated}}
+  <div class="span12">
+    {{view Ember.TextField valueBinding="title" class="span6" placeholder="Title"}}
+  </div>
+
+  <div class="span12">
+    {{view Ember.TextArea valueBinding="body" class="span8" rows="6" placeholder="Your blog goes here"}}
+  </div>
+  <div class="span12">
+    <button {{action save}} class="btn">Save</button>
+  </div>
+{{else}}
+  <div class="alert alert-info">
+    <p>You don't appear to be logged in. Please select a login provider from the <strong>Login</strong> menu.</p>
+  </div>{{/if}}
